@@ -9,7 +9,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
 
-
 def home(request):
     breakfast=Category.objects.filter(name='breakfast')[0].fooditem_set.all()[:5]
     lunch=Category.objects.filter(name='lunch')[0].fooditem_set.all()[:5]
@@ -97,14 +96,14 @@ def addFooditem(request):
     return render(request,'addUserFooditem.html',context)
 
 
-        
 class ItemUpdate(LoginRequiredMixin, UpdateView):
   model = Fooditem
   fields = '__all__' 
 
 class ItemDelete(LoginRequiredMixin, DeleteView):
-  model = Fooditem
-  success_url = reverse_lazy('userPage')
+ model = Fooditem
+ success_url = reverse_lazy('userPage')
+
  
 
 
