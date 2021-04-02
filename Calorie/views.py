@@ -43,6 +43,7 @@ def userPage(request):
     totalCalories=0
     for foods in finalFoodItems:
         totalCalories+=foods.calorie
+
     CalorieLeft=2000-totalCalories
     context={'CalorieLeft':CalorieLeft,'totalCalories':totalCalories,'cnt':cnt,'foodlist':finalFoodItems,'fooditem':fooditems,'myfilter':myfilter}
     return render(request,'user.html',context)
