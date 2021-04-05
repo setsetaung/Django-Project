@@ -1,21 +1,33 @@
 {% extends 'main.html' %}
 {% block content %}
 <head> <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	
 </head>
 
 <div class="today">
-	<h2>Calorie Calcularor Tracker</h2>
+	<h2>Calorie Calculator Tracker</h2>
 	<div class="flex-box-row">
 		<h3>Calorie Limit: 2000</h3>
 		<h3>totalCalories consumed: {{totalCalories}}</h3>
-		{% if  totalCalories > 2000 %}
-			<script>
-				alert('Total Calorie Consumed is over 2000');
-			</script>
-		{% endif %}
 		<h3>Left: {{ CalorieLeft }}</h3>
 	</div>
-	
+	<div>
+		{% if  totalCalories > 100 %}
+		  
+			{% if messages %}
+					<ul class="messages">
+						{% for msg in messages %}       
+						<li>
+							<div class="alert alert-{{msg.level_tag}}" role="alert">
+							{{msg.message}}
+							</div>
+						</li>
+						{% endfor %}
+					</ul>
+			{% endif %}
+		{% endif %}
+	</div>
+		
     <div class="card card-body">
         <table>
             <tr>
@@ -46,7 +58,7 @@
             {% endfor %}
         </table>
 	</div>
-</div>
+
 <br>
 <h3>Available items:</h3>
 <form method="get">
@@ -78,4 +90,5 @@
 		</div>
 	</div>
 </div>
+
 {% endblock %}

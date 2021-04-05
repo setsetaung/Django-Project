@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import *
 from .forms import *
 from .filters import fooditemFilter
@@ -7,6 +7,7 @@ from .filters import fooditemFilter
 from django.views.generic.edit import  CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.contrib import messages
 
 
 def home(request):
@@ -45,6 +46,7 @@ def userPage(request):
         totalCalories+=foods.calorie
 
     CalorieLeft=2000-totalCalories
+    messages.warning(request, 'Your Calorie is Over Limit 2000.')
     context={'CalorieLeft':CalorieLeft,'totalCalories':totalCalories,'cnt':cnt,'foodlist':finalFoodItems,'fooditem':fooditems,'myfilter':myfilter}
     return render(request,'user.html',context)
 
@@ -101,9 +103,14 @@ class ItemUpdate(LoginRequiredMixin, UpdateView):
   model = Fooditem
   fields = '__all__' 
 
-class ItemDelete(LoginRequiredMixin, DeleteView):
- model = Fooditem
- success_url = reverse_lazy('userPage')
+# class ItemDelete(LoginRequiredMixin, DeleteView):
+#     model = UserFooditem
+#     success_url = reverse_lazy('userPage')
+
+def item_delete(request, pk):
+  query = UserFooditem.objects.filter(fooditem=pk)
+  query.delete()
+  return HttpResponseRedirect(reverse('userPage'))
 
  
 

@@ -127,3 +127,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL = 'login'
+
+from django.contrib.messages import constants as messages
+
+
