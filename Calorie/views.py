@@ -46,7 +46,7 @@ def userPage(request):
         totalCalories+=foods.calorie
 
     CalorieLeft=2000-totalCalories
-    if totalCalories >= 100:
+    if totalCalories >= 2000:
         messages.warning(request, 'Your Calorie is Over Limit 2000.')
     context={'CalorieLeft':CalorieLeft,'totalCalories':totalCalories,'cnt':cnt,'foodlist':finalFoodItems,'fooditem':fooditems,'myfilter':myfilter}
     return render(request,'user.html',context)
@@ -104,9 +104,7 @@ class ItemUpdate(LoginRequiredMixin, UpdateView):
   model = Fooditem
   fields = '__all__' 
 
-# class ItemDelete(LoginRequiredMixin, DeleteView):
-#     model = UserFooditem
-#     success_url = reverse_lazy('userPage')
+
 
 def item_delete(request, pk):
   query = UserFooditem.objects.filter(fooditem=pk)
