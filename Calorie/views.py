@@ -46,7 +46,8 @@ def userPage(request):
         totalCalories+=foods.calorie
 
     CalorieLeft=2000-totalCalories
-    messages.warning(request, 'Your Calorie is Over Limit 2000.')
+    if totalCalories >= 100:
+        messages.warning(request, 'Your Calorie is Over Limit 2000.')
     context={'CalorieLeft':CalorieLeft,'totalCalories':totalCalories,'cnt':cnt,'foodlist':finalFoodItems,'fooditem':fooditems,'myfilter':myfilter}
     return render(request,'user.html',context)
 
